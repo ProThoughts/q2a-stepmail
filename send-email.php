@@ -5,16 +5,16 @@ if (!defined('QA_VERSION')) {
 }
 
 for($i=1; $i<=3; $i++){
-	$body = qa_opt('q2a-stepmail-' . $i);
+	$bodyTemplate = qa_opt('q2a-stepmail-' . $i);
 	$days = qa_opt('q2a-stepmail-day-' . $i);
 	$title = qa_opt('q2a-stepmail-title-' . $i);
-	sendXDaysMail($days, $body, $title);
+	sendXDaysMail($days, $bodyTemplate, $title);
 }
 
-function sendXDaysMail($days, $body, $title) {
+function sendXDaysMail($days, $bodyTemplate, $title) {
 	$users = getXDaysAgoRegisterUsers($days);
 	foreach($users as $user) {
-		$body = strtr($body, 
+		$body = strtr($bodyTemplate, 
 				array(
 					'^username' => $user['handle'],
 					'^sitename' => qa_opt('site_title')
