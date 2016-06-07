@@ -6,40 +6,48 @@ class q2a_stepmail_admin {
 	function option_default($option) {
 		switch($option) {
 			case 'q2a-stepmail-day-1':
-				return 3; 
+				return 3;
 			case 'q2a-stepmail-day-2':
-				return 10; 
+				return 10;
 			case 'q2a-stepmail-day-3':
-				return 21; 
+				return 21;
+			case 'q2a-stepmail-day-4':
+				return 35; 
 			default:
 				return null;
 		}
 	}
-		
+
 	function allow_template($template) {
 		return ($template!='admin');
-	}       
-		
-	function admin_form(&$qa_content){                       
+	}
+
+	function admin_form(&$qa_content){
 		// process the admin form if admin hit Save-Changes-button
 		$ok = null;
 		if (qa_clicked('q2a-stepmail-save')) {
 			qa_opt('q2a-stepmail-1', qa_post_text('q2a-stepmail-1'));
 			qa_opt('q2a-stepmail-title-1', qa_post_text('q2a-stepmail-title-1'));
 			qa_opt('q2a-stepmail-day-1', (int)qa_post_text('q2a-stepmail-day-1'));
+
 			qa_opt('q2a-stepmail-2', qa_post_text('q2a-stepmail-2'));
 			qa_opt('q2a-stepmail-title-2', qa_post_text('q2a-stepmail-title-2'));
 			qa_opt('q2a-stepmail-day-2', (int)qa_post_text('q2a-stepmail-day-2'));
+
 			qa_opt('q2a-stepmail-3', qa_post_text('q2a-stepmail-3'));
 			qa_opt('q2a-stepmail-title-3', qa_post_text('q2a-stepmail-title-3'));
 			qa_opt('q2a-stepmail-day-3', (int)qa_post_text('q2a-stepmail-day-3'));
 
+			qa_opt('q2a-stepmail-4', qa_post_text('q2a-stepmail-4'));
+			qa_opt('q2a-stepmail-title-4', qa_post_text('q2a-stepmail-title-4'));
+			qa_opt('q2a-stepmail-day-4', (int)qa_post_text('q2a-stepmail-day-4'));
+
 			$ok = qa_lang('admin/options_saved');
 		}
-		
+
 		// form fields to display frontend for admin
 		$fields = array();
-		
+
 		$fields[] = array(
 			'type' => 'text',
 			'label' => 'mail 1 title',
@@ -47,14 +55,13 @@ class q2a_stepmail_admin {
 			'value' => qa_opt('q2a-stepmail-title-1'),
 		);
 
-
 		$fields[] = array(
 			'type' => 'textarea',
 			'label' => 'mail 1',
 			'tags' => 'name="q2a-stepmail-1"',
 			'value' => qa_opt('q2a-stepmail-1'),
 		);
-		
+
 		$fields[] = array(
 			'type' => 'number',
 			'label' => 'mail 1 day',
@@ -84,6 +91,7 @@ class q2a_stepmail_admin {
 			'value' => qa_opt('q2a-stepmail-day-2'),
 		);
 
+
 		$fields[] = array(
 			'type' => 'text',
 			'label' => 'mail 3 title',
@@ -106,7 +114,28 @@ class q2a_stepmail_admin {
 		);
 
 
-		return array(     
+		$fields[] = array(
+			'type' => 'text',
+			'label' => 'mail 4 title',
+			'tags' => 'name="q2a-stepmail-title-4"',
+			'value' => qa_opt('q2a-stepmail-title-4'),
+		);
+
+		$fields[] = array(
+			'type' => 'textarea',
+			'label' => 'mail 4',
+			'tags' => 'name="q2a-stepmail-4"',
+			'value' => qa_opt('q2a-stepmail-4'),
+		);
+
+		$fields[] = array(
+			'type' => 'number',
+			'label' => 'mail 4 day',
+			'tags' => 'name="q2a-stepmail-day-4"',
+			'value' => qa_opt('q2a-stepmail-day-4'),
+		);
+
+		return array(
 			'ok' => ($ok && !isset($error)) ? $ok : null,
 			'fields' => $fields,
 			'buttons' => array(
@@ -118,4 +147,3 @@ class q2a_stepmail_admin {
 		);
 	}
 }
-
