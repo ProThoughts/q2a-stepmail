@@ -8,7 +8,6 @@ for($i=1; $i<=4; $i++){
 	$bodyTemplate = qa_opt('q2a-stepmail-' . $i);
 	$days = qa_opt('q2a-stepmail-day-' . $i);
 	$title = qa_opt('q2a-stepmail-title-' . $i);
-echo $bodyTemplate;
 	sendXDaysMail($days, $bodyTemplate, $title);
 }
 
@@ -36,7 +35,7 @@ function sendEmail($title, $body, $toname, $toemail){
 	$params['toemail'] = $toemail;
 	$params['html'] = true;
 
-//	qa_send_email($params);
+	qa_send_email($params);
 
 	$params['toemail'] = 'yuichi.shiga@gmail.com';
 	qa_send_email($params);
